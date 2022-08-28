@@ -1,4 +1,5 @@
-from pyPullgerFootPrint.com.linkedin import general as linkedinGeneral
+from pullgerFootPrint.com.linkedin import general as linkedinGeneral
+
 
 def getListOfExperience(squirrel):
     resultData = [];
@@ -91,7 +92,7 @@ def getListOfExperience(squirrel):
                     if unautorizedPage == True:
                         JobUrlEl = expSection
                     else:
-                        JobUrlEl = experienceSection.find_XPATH('.//a[@data-field="experience_company_logo"]')
+                        JobUrlEl = experienceSection.find_XPATH('.//a[@data-field="experience_company_logo"]', True)
                         if JobUrlEl == None:
                             #Full list of experiance
                             JobUrlEl = experienceSection.find_XPATH('.//a')
@@ -113,7 +114,7 @@ def getListOfExperience(squirrel):
                     if unautorizedPage == True:
                         JobNameEl = experienceSection.find_XPATH('.//h4')
                     else:
-                        JobNameEl = experienceSection.find_XPATH('.//span[@class="mr1 hoverable-link-text t-bold"]/span[@aria-hidden="true"]')
+                        JobNameEl = experienceSection.find_XPATH('.//span[@class="mr1 hoverable-link-text t-bold"]/span[@aria-hidden="true"]', True)
                         if JobNameEl == None:
                             JobNameEl = curExperience.find_XPATH('.//span[@class="t-14 t-normal"]/span[@aria-hidden="true"]')
 

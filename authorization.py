@@ -1,9 +1,8 @@
 # from selenium.webdriver.common.by import By
+import time
 
 def getUserInputElement(squirrel):
-    elementFind = squirrel.find_XPATH("//input[@id='session_key']");
-
-    return elementFind;
+    return squirrel.find_XPATH("//input[@id='session_key']");
 
 def setUserName(squirrel, inUserName):
     result = None;
@@ -15,9 +14,7 @@ def setUserName(squirrel, inUserName):
     return result;
 
 def getPasswordInputElement(squirrel):
-    elementFind = squirrel.find_XPATH("//input[@id='session_password']");
-
-    return elementFind;
+    return squirrel.find_XPATH("//input[@id='session_password']");
 
 def setPassword(squirrel, inPassword):
     result = None;
@@ -29,17 +26,13 @@ def setPassword(squirrel, inPassword):
     return result;
 
 def getSingInButton(squirrel):
-    elementFind = squirrel.find_XPATH("//button[@class='sign-in-form__submit-button']");
-
-    return elementFind;
-
+    return squirrel.find_XPATH("//button[@class='sign-in-form__submit-button']");
 
 def singIn(squirrel):
     result = None;
 
     singInButton = getSingInButton(squirrel);
     if singInButton != None:
-        import time
         time.sleep(1)
         result = singInButton.click();
 

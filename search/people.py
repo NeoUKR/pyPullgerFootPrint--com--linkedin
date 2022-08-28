@@ -1,4 +1,5 @@
-from pyPullgerFootPrint.com.linkedin import general as linkedinGeneral
+from pullgerFootPrint.com.linkedin import general as linkedinGeneral
+
 
 def getCountOfResults(squirrel):
 

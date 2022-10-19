@@ -5,7 +5,7 @@ def getCountOfResults(squirrel):
 
     resCount = None;
 
-    resElements = squirrel.find_XPATH("//h2[@class='pb2 t-black--light t-14']")
+    resElements = squirrel.find_xpath("//h2[@class='pb2 t-black--light t-14']")
 
     if resElements != None:
         resInner = resElements.text
@@ -23,7 +23,7 @@ def getListOfPeoples(squirrel):
 
     resultData = [];
 
-    personsList = squirrel.finds_XPATH("//div[@class='entity-result']")
+    personsList = squirrel.finds_xpath("//div[@class='entity-result']")
 
     for el in personsList:
         reviewData = {};
@@ -43,16 +43,16 @@ def getListOfPeoples(squirrel):
             except:
                 continue;
 
-        NameEl = el.find_XPATH(".//a[@class='app-aware-link']")
+        NameEl = el.find_xpath(".//a[@class='app-aware-link']")
 
         if NameEl != None:
             url = NameEl.get_attribute('href')
-            url = linkedinGeneral.getCleanedURL(url)
+            url = linkedinGeneral.get_cleaned_url(url)
             reviewData["url"] = url
 
             reviewData["nick"] = linkedinGeneral.getNickFromURL(url)
 
-            resNameElement = NameEl.find_XPATH(".//span[@aria-hidden='true']")
+            resNameElement = NameEl.find_xpath(".//span[@aria-hidden='true']")
             if resNameElement != None:
                 reviewData["full_name"] = resNameElement.text
 
@@ -64,7 +64,7 @@ def getListOfPeoples(squirrel):
                 reviewData["second_name"] = ''.join(map(str, splitedFullName[1:]))
 
 
-        discriptionEl = el.find_XPATH(".//div[@class='entity-result__primary-subtitle t-14 t-black t-normal']")
+        discriptionEl = el.find_xpath(".//div[@class='entity-result__primary-subtitle t-14 t-black t-normal']")
         if discriptionEl != None:
             reviewData["discription"] = discriptionEl.text
 
@@ -76,9 +76,9 @@ def getListOfPeoples(squirrel):
 def getNumberCurentPaginationPage(squirrel):
     result = None;
 
-    paginationSection = squirrel.find_XPATH('//ul[@class="artdeco-pagination__pages artdeco-pagination__pages--number"]')
+    paginationSection = squirrel.find_xpath('//ul[@class="artdeco-pagination__pages artdeco-pagination__pages--number"]')
     if paginationSection != None:
-        curPagPageEl = paginationSection.find_XPATH('./li[@class="artdeco-pagination__indicator artdeco-pagination__indicator--number active selected ember-view"]')
+        curPagPageEl = paginationSection.find_xpath('./li[@class="artdeco-pagination__indicator artdeco-pagination__indicator--number active selected ember-view"]')
         if curPagPageEl != None:
             try:
                 result = int(curPagPageEl.get_attribute('data-test-pagination-page-btn'))
@@ -90,9 +90,9 @@ def getNumberCurentPaginationPage(squirrel):
 def getNumberLastPaginationPage(squirrel):
     result = None;
 
-    paginationSection = squirrel.find_XPATH('//ul[@class="artdeco-pagination__pages artdeco-pagination__pages--number"]')
+    paginationSection = squirrel.find_xpath('//ul[@class="artdeco-pagination__pages artdeco-pagination__pages--number"]')
     if paginationSection != None:
-        allPaginationButton = paginationSection.finds_XPATH('./li[@class="artdeco-pagination__indicator artdeco-pagination__indicator--number ember-view"]')
+        allPaginationButton = paginationSection.finds_xpath('./li[@class="artdeco-pagination__indicator artdeco-pagination__indicator--number ember-view"]')
 
         for curPagDome in allPaginationButton:
             try:
@@ -103,7 +103,7 @@ def getNumberLastPaginationPage(squirrel):
     return result
 
 def getNextPaginationButton(squirrel):
-    result = squirrel.find_XPATH('//button[@aria-label="Next"]')
+    result = squirrel.find_xpath('//button[@aria-label="Next"]')
     return result
 
 def pushNextPaginationButton(squirrel):

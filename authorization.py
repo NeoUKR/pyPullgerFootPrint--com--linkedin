@@ -1,42 +1,50 @@
-# from selenium.webdriver.common.by import By
 import time
 
-def getUserInputElement(squirrel):
-    return squirrel.find_XPATH("//input[@id='session_key']");
 
-def setUserName(squirrel, inUserName):
-    result = None;
+def get_user_input_element(squirrel):
+    return squirrel.find_xpath(xpath="//input[@id='session_key']");
 
-    userInput = getUserInputElement(squirrel);
-    if userInput != None:
-        result = userInput.send_string(inUserName);
 
-    return result;
+def set_user_name(squirrel, user_name: str):
+    result = None
 
-def getPasswordInputElement(squirrel):
-    return squirrel.find_XPATH("//input[@id='session_password']");
+    userInput = get_user_input_element(squirrel=squirrel)
+    if userInput is not None:
+        userInput.send_string(user_name)
+        result = True
 
-def setPassword(squirrel, inPassword):
-    result = None;
+    return result
 
-    passwordInput = getPasswordInputElement(squirrel);
-    if passwordInput != None:
-        result = passwordInput.send_string(inPassword);
 
-    return result;
+def get_password_input_element(squirrel):
+    return squirrel.find_xpath(xpath="//input[@id='session_password']")
 
-def getSingInButton(squirrel):
-    return squirrel.find_XPATH("//button[@class='sign-in-form__submit-button']");
 
-def singIn(squirrel):
-    result = None;
+def set_password(squirrel, password: str):
+    result = None
 
-    singInButton = getSingInButton(squirrel);
-    if singInButton != None:
+    password_input = get_password_input_element(squirrel)
+    if password_input is not None:
+        password_input.send_string(password)
+        result = True
+
+    return result
+
+
+def get_sing_in_button(squirrel):
+    return squirrel.find_xpath(xpath="//button[@class='sign-in-form__submit-button']")
+
+
+def sing_in(squirrel):
+    result = None
+
+    sing_in_button = get_sing_in_button(squirrel)
+    if sing_in_button is not None:
         time.sleep(1)
-        result = singInButton.click();
+        sing_in_button.click()
+        result = True
 
-    return result;
+    return result
 
 
 

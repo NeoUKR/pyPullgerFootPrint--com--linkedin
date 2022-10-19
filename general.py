@@ -1,5 +1,6 @@
-def getCleanedURL(url):
-    result = None;
+
+def get_cleaned_url(url: str):
+    result = None
 
     if url.find('?') == -1:
         clearedURL = url
@@ -9,11 +10,11 @@ def getCleanedURL(url):
     clearedURL = clearedURL.replace('www.', '')
     clearedURL = clearedURL.replace('https://', '')
 
-    splitted = list(filter(None, clearedURL.split('/')))
-    if splitted[-2] == 'in' or splitted[-2] == 'company':
-        result = '/'.join(splitted)
-    elif splitted[1] == 'in' or splitted[1] == 'company':
-        result = '/'.join(splitted[:3])
+    url_split = list(filter(None, clearedURL.split('/')))
+    if url_split[-2] == 'in' or url_split[-2] == 'company':
+        result = '/'.join(url_split)
+    elif url_split[1] == 'in' or url_split[1] == 'company':
+        result = '/'.join(url_split[:3])
 
     return result
 
@@ -37,7 +38,7 @@ def checkNick(nick):
 def getNickFromURL(url):
     result = None
 
-    url = getCleanedURL(url)
+    url = get_cleaned_url(url)
     splitedURL = url.split('/')
     if splitedURL[-2] == 'in' or splitedURL[-2] == 'company':
         nameZone = splitedURL[-1]
@@ -70,7 +71,7 @@ def checkID(id):
 def getIdFromURL(url):
     result = None
 
-    url = getCleanedURL(url)
+    url = get_cleaned_url(url)
     splitedURL = url.split('/')
     if splitedURL[-2] == 'in' or splitedURL[-2] == 'company':
         identificator = splitedURL[-1]

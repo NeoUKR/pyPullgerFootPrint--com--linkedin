@@ -22,9 +22,9 @@ def getOverview(inSquirrel = None, **kwargs):
         squirrel = kwargs['squirrel']
 
     if squirrel != None:
-        overviewCard = squirrel.find_XPATH('//section[@class="artdeco-card p5 mb4"]')
+        overviewCard = squirrel.find_xpath('//section[@class="artdeco-card p5 mb4"]')
         if overviewCard != None:
-            overviewSection = overviewCard.find_XPATH('.//p')
+            overviewSection = overviewCard.find_xpath('.//p')
             if overviewSection != None:
                 result = overviewSection.text
     return result
@@ -58,7 +58,7 @@ def getNick(**kwargs):
     if squirrel != None:
         navigateBlock = squirrel.find_XPATH('//ul[@class="org-page-navigation__items "]')
         if navigateBlock != None:
-            navButton = navigateBlock.find_XPATH('.//a')
+            navButton = navigateBlock.find_xpath('.//a')
             if navButton != None:
                 href = navButton.get_attribute('href')
                 if href != None:
@@ -76,7 +76,7 @@ def getLocations(inSquirrel=None, **kwargs):
         squirrel = kwargs['squirrel']
 
     if squirrel != None:
-        locationsList = squirrel.finds_XPATH('//p[@class="t-14 t-black--light t-normal break-words"]')
+        locationsList = squirrel.finds_xpath('//p[@class="t-14 t-black--light t-normal break-words"]')
         for curLocation in locationsList:
             result.append(curLocation.text)
 
@@ -136,17 +136,17 @@ def getAboutData(**kwargs):
         # ================================================================================
         headSegment = squirrel.find_XPATH('//div[@class="block mt2"]')
         if headSegment != None:
-            NameTag = headSegment.find_XPATH('.//h1')
+            NameTag = headSegment.find_xpath('.//h1')
             if NameTag != None:
                 structureAbout['NAME'] = NameTag.text
 
-            DiscriptionTag = headSegment.find_XPATH('.//p')
+            DiscriptionTag = headSegment.find_xpath('.//p')
             if DiscriptionTag != None:
                 structureAbout['DISCRIPTION'] = DiscriptionTag.text
 
-            MainInfoSegment = headSegment.find_XPATH('.//div[@class="org-top-card-summary-info-list t-14 t-black--light"]/div[@class="inline-block"]')
+            MainInfoSegment = headSegment.find_xpath('.//div[@class="org-top-card-summary-info-list t-14 t-black--light"]/div[@class="inline-block"]')
             if MainInfoSegment != None:
-                MainSegments = MainInfoSegment.finds_XPATH('./div')
+                MainSegments = MainInfoSegment.finds_xpath('./div')
                 i = 1
                 for curMainInformation in MainSegments:
                     if i == 1:
@@ -168,7 +168,7 @@ def getAboutData(**kwargs):
         overviewCard = squirrel.find_XPATH('//dl[@class="overflow-hidden"]')
         if overviewCard != None:
 
-            aboutSections = overviewCard.finds_XPATH('./*')
+            aboutSections = overviewCard.finds_xpath('./*')
             curentSection = None;
 
             for aboutElement in aboutSections:
@@ -176,13 +176,13 @@ def getAboutData(**kwargs):
                     curentSection = aboutElement.text.upper();
                 elif aboutElement.tag_name == 'dd':
                     if curentSection == 'WEBSITE':
-                        linckElement = aboutElement.find_XPATH('.//a')
+                        linckElement = aboutElement.find_xpath('.//a')
                         if linckElement != None:
                             structureAbout[curentSection] = linckElement.get_attribute('href')
                     elif curentSection == 'INDUSTRY':
                         structureAbout[curentSection] = aboutElement.text.upper()
                     elif curentSection == 'COMPANY SIZE':
-                        if aboutElement.find_XPATH('.//span'):
+                        if aboutElement.find_xpath('.//span'):
                             structureAbout['EMPLOYEE_LINKEDIN'] = aboutElement.text[:aboutElement.text.find('\n')]
                         else:
                             structureAbout['COMPANY_SIZE'] = aboutElement.text

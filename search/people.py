@@ -19,59 +19,61 @@ def getCountOfResults(squirrel):
 
     return resCount;
 
-def getListOfPeoples(squirrel):
 
-    resultData = [];
+def get_list_of_peoples(squirrel):
+
+    result_data = []
 
     personsList = squirrel.finds_xpath("//div[@class='entity-result']")
 
     for el in personsList:
-        reviewData = {};
-        reviewData["id"] = None
-        reviewData["nick"] = None
-        reviewData["first_name"] = None
-        reviewData["second_name"] = None
-        reviewData["full_name"] = None
-        reviewData["discription"] = None
-        reviewData["url"] = None
+        review_data = {
+            "id": None,
+            "nick": None,
+            "first_name": None,
+            "second_name": None,
+            "full_name": None,
+            "description": None,
+            "url": None
+        }
 
         idAttr = el.get_attribute('data-chameleon-result-urn')
         idAttrArray = idAttr.split(':')
         if len(idAttrArray) == 4:
             try:
-                reviewData["id"] = int(idAttrArray[3]);
+                review_data["id"] = int(idAttrArray[3])
             except:
-                continue;
+                continue
 
-        NameEl = el.find_xpath(".//a[@class='app-aware-link']")
+        NameEl = el.find_xpath(".//a[@class='app-aware-link ']")
 
-        if NameEl != None:
+        if NameEl is not None:
             url = NameEl.get_attribute('href')
             url = linkedinGeneral.get_cleaned_url(url)
-            reviewData["url"] = url
+            review_data["url"] = url
 
-            reviewData["nick"] = linkedinGeneral.getNickFromURL(url)
+            review_data["nick"] = linkedinGeneral.getNickFromURL(url)
 
             resNameElement = NameEl.find_xpath(".//span[@aria-hidden='true']")
-            if resNameElement != None:
-                reviewData["full_name"] = resNameElement.text
+            if resNameElement is not None:
+                review_data["full_name"] = resNameElement.text
 
         # Get first and second names
-        if reviewData["full_name"] != None:
-            splitedFullName = reviewData["full_name"].split(" ")
+        if review_data["full_name"] is not None:
+            splitedFullName = review_data["full_name"].split(" ")
             if len(splitedFullName) > 1:
-                reviewData["first_name"] = splitedFullName[0];
-                reviewData["second_name"] = ''.join(map(str, splitedFullName[1:]))
+                review_data["first_name"] = splitedFullName[0];
+                review_data["second_name"] = ''.join(map(str, splitedFullName[1:]))
 
+        description_el = el.find_xpath(
+            ".//div[@class='entity-result__primary-subtitle t-14 t-black t-normal']"
+        )
+        if description_el is not None:
+            review_data["description"] = description_el.text
 
-        discriptionEl = el.find_xpath(".//div[@class='entity-result__primary-subtitle t-14 t-black t-normal']")
-        if discriptionEl != None:
-            reviewData["discription"] = discriptionEl.text
+        result_data.append(review_data)
 
-        resultData.append(reviewData);
-
-
-    return resultData;
+    return result_data
 
 def getNumberCurentPaginationPage(squirrel):
     result = None;

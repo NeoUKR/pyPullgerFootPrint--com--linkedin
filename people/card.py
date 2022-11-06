@@ -82,7 +82,7 @@ def get_list_of_experience(squirrel):
                         "companyIDENTIFICATOR": None,
                         "companyID": None,
                         "companyNICK": None,
-                        "job_discription": None,
+                        "job_description": None,
                         "companyName": None,
                         "job_timing_type": None,
                         "companyURL": None
@@ -103,7 +103,7 @@ def get_list_of_experience(squirrel):
                         )
 
                     if JobDiscriptionEl is not None:
-                        experienceData["job_discription"] = JobDiscriptionEl.text
+                        experienceData["job_description"] = JobDiscriptionEl.text
 
                     if unauthorized_page is True:
                         JobUrlEl = expSection
